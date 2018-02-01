@@ -1,0 +1,14 @@
+#!/usr/bin/with-contenv bash
+
+UMASK_SET=${UMASK_SET:-022}
+
+umask "$UMASK_SET"
+
+PARAMS="--btn_cache_path /btn"
+
+if [ "${VERBOSE}" == "true" ]; then
+  PARAMS="${PARAMS} --verbose"
+fi
+
+exec \
+	s6-setuidgid abc /usr/bin/btn_scrape --metadata_tip $PARAMS
